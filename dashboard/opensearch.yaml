@@ -9,33 +9,33 @@ Resources:
   DataAccessPolicy:
     Type: 'AWS::OpenSearchServerless::AccessPolicy'
     Properties:
-      Name: quickstart-access-policy
+      Name: solacedashboard-access-policy
       Type: data
-      Description: Access policy for quickstart collection
+      Description: Access policy for solacedashboard collection
       Policy: !Sub >-
         [{"Description":"Access for cfn user","Rules":[{"ResourceType":"index","Resource":["index/*/*"],"Permission":["aoss:*"]},
-        {"ResourceType":"collection","Resource":["collection/quickstart"],"Permission":["aoss:*"]}],
+        {"ResourceType":"collection","Resource":["collection/solacedashboard"],"Permission":["aoss:*"]}],
         "Principal":["arn:aws:iam::${AWS::AccountId}:user/aossadmin"]}]
   NetworkPolicy:
     Type: 'AWS::OpenSearchServerless::SecurityPolicy'
     Properties:
-      Name: quickstart-network-policy
+      Name: solacedashboard-network-policy
       Type: network
-      Description: Network policy for quickstart collection
+      Description: Network policy for solacedashboard collection
       Policy: >-
-        [{"Rules":[{"ResourceType":"collection","Resource":["collection/quickstart"]}, {"ResourceType":"dashboard","Resource":["collection/quickstart"]}],"AllowFromPublic":true}]
+        [{"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}, {"ResourceType":"dashboard","Resource":["collection/solacedashboard"]}],"AllowFromPublic":true}]
   EncryptionPolicy:
     Type: 'AWS::OpenSearchServerless::SecurityPolicy'
     Properties:
-      Name: quickstart-security-policy
+      Name: solacedashboard-security-policy
       Type: encryption
-      Description: Encryption policy for quickstart collection
+      Description: Encryption policy for solacedashboard collection
       Policy: >-
-        {"Rules":[{"ResourceType":"collection","Resource":["collection/quickstart"]}],"AWSOwnedKey":true}
+        {"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}],"AWSOwnedKey":true}
   Collection:
     Type: 'AWS::OpenSearchServerless::Collection'
     Properties:
-      Name: quickstart
+      Name: solacedashboard
       Type: TIMESERIES
       Description: Collection to holds timeseries data
     DependsOn: EncryptionPolicy
