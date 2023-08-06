@@ -1,10 +1,14 @@
 ---
-title: "Implement EDA using Solace and AWS"
+title: "Accelerate Capital Market Data Transfer with Solace Event-Driven Architecture on AWS"
 chapter: true
 weight: 1
 ---
 
-# Implement EDA using Solace and AWS
+[//]: # (Leveraging Solace EDA on AWS: Accelerating Capital Market Data Migration)
+[//]: # (Accelerate Capital Market Data Transfer with Solace Event-Driven Architecture on AWS)
+
+# Move capital market data using Solace EDA on AWS
+Accelerate Capital Market Data Transfer with Solace Event-Driven Architecture on AWS
 
 ![Solace Logo](/images/logos/Solace_Logo.png)
 
