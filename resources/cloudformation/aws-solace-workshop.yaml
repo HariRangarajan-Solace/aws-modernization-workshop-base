@@ -1,17 +1,14 @@
 # Author: Hari Rangarajan
 # Project: Solace-AWS Workshop
+# This version does the following :
+# - Creates all the n/w setups
+# - Creates a cloudformation template to use this subnet
 
 Metadata:
   License: Apache-2.0
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'This template will create required infrastructure for AWS and solace '
 
-# Keypair has to be created as a manual step. 
-Parameters:
-  KeyName:
-    Description: Name of an existing EC2 KeyPair to enable SSH access
-    Type: AWS::EC2::KeyPair::KeyName
-    ConstraintDescription: Must be the name of an existing EC2 KeyPair.
 Resources:
   solacesecwkspvpc:
     Type: AWS::EC2::VPC
@@ -66,8 +63,8 @@ Resources:
           Value: solace-workshop
         - Key: Name
           Value: solace-wrksp-pub-sub-2
-  
-  # Lets create public route tables and associate them with subnets. 
+
+  # Lets create public route tables and associate them with subnets.
   PubRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -92,7 +89,7 @@ Resources:
         Ref: publsubnet2
       RouteTableId:
         Ref: PubRouteTable
-  # Lets add default route to internet gateway from public subnet. This will ensure that 
+  # Lets add default route to internet gateway from public subnet. This will ensure that
   # route to internet is via IG
   PublicRoute:
     Type: AWS::EC2::Route
@@ -104,7 +101,7 @@ Resources:
       GatewayId:
         Ref: solacesecig
 
-  # Lets create security group and assign ingress traffic rules. 
+  # Lets create security group and assign ingress traffic rules.
   PubSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -141,7 +138,7 @@ Resources:
         - Key: Name
           Value: PubCommunicationRt
 
-  # Lets create NAT Gateway and EIP before creating private subnets & routes. 
+  # Lets create NAT Gateway and EIP before creating private subnets & routes.
   NATGatewayEIP:
     Type: AWS::EC2::EIP
     Properties:
@@ -258,17 +255,15 @@ Resources:
           - PvtSecurityGroup
           - GroupId
 
-  # Lets create public instance and private instances. 
-  PublicInstance1:
-    Type: "AWS::EC2::Instance"
+  C9IDE:
+    Type: 'AWS::Cloud9::EnvironmentEC2'
     Properties:
-      ImageId: ami-0947c48ae0aaf6781
-      InstanceType: t2.micro
-      KeyName:
-        Ref: KeyName
-      SecurityGroupIds:
-        - !Ref PubSecurityGroup
-      SubnetId: !Ref publsubnet1
-      Tags:
-        - Key: Name
-          Value: solaceSecPublicHost
+      Name: Solace-AWS-Cloud9
+      Description: Cloud9 IDE for the Solace-AWS workshop
+      AutomaticStopTimeMinutes: 30
+      SubnetId:
+        Ref: publsubnet1
+      InstanceType: t2.small
+      Repositories:
+        - RepositoryUrl: 'https://github.com/SolaceLabs/solace-aws-integration.git'
+          PathComponent: 'solace-aws-integration'
