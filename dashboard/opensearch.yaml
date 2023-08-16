@@ -15,7 +15,7 @@ Resources:
       Policy: !Sub >-
         [{"Description":"Access for cfn user","Rules":[{"ResourceType":"index","Resource":["index/*/*"],"Permission":["aoss:*"]},
         {"ResourceType":"collection","Resource":["collection/solacedashboard"],"Permission":["aoss:*"]}],
-        "Principal":["arn:aws:iam::${AWS::AccountId}:user/aossadmin"]}]
+        "Principal":["arn:aws:iam::${AWS::AccountId}:user/aossadmin", "arn:aws:iam::${AWS::AccountId}:role/Admin-OneClick"]}]
   NetworkPolicy:
     Type: 'AWS::OpenSearchServerless::SecurityPolicy'
     Properties:
@@ -42,6 +42,8 @@ Resources:
 Outputs:
   IAMUser:
     Value: !Ref IAMUSer
+  EndpointURL:
+    Value: !GetAtt Collection.CollectionEndpoint
   DashboardURL:
     Value: !GetAtt Collection.DashboardEndpoint
   CollectionARN:

@@ -6,6 +6,12 @@ weight: 4
 
 # Set up Elastic Dashboard
 
-Solace and AWS integration provides developers with a robust and efficient solution for implementing cloud-based messaging and event-driven architectures. By combining Solace's messaging capabilities with the power of Amazon Web Services (AWS), developers can take advantage of several key benefits:
+Typically a customer who use adopts Solace on cloud would first utilize Solace as an infrascture to ingest large amount of data from On-Prem applications (such as Mainframe) to cloud, and then develop use cases, such as data lake, data analytics. In this workshop, we will use OpenSearch (ELK) and Kibana as the data visialization.
 
-1. Scalability: The integration leverages AWS's elastic infrastructure to easily scale messaging brokers and processing resources. This enables applications to handle varying workloads and ensures optimal performance during peak times.
+The following is a simple architecture. S3 bucket and OpenSearch Serverless are already set up by CloudFormation template. What we will do in this section is:
+
+1. Configure Lambda function, that ingest data to OpenSearch in real time
+2. Set up visualization in OpenSearch Dashboard
+
+
+![Dash board architecture](/images/moduleSix/workshop-dashboard-architecture.png)
