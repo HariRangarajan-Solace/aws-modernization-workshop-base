@@ -13,9 +13,9 @@ Then click the big "+" Plus button to create a new Service.
 Ensure you have selected Developer Service, Amazon Web Services as the cloud service provider, 
 and then click the map to find a region close to you:
 
-![Create Service](/images/moduleOne/broker_create_service.png)
+![Create Service](/images/moduleOne/broker_create_service.jpg)
 
-Give your Solace PubSub+ Cloud service instance a name, and then tell it to start! 
+Give your Solace PubSub+ Cloud service instance a name using the naming convention : _FirstName_-Solace-AWS-Int-APAC, and then tell it start! 
 Under the covers, a Solace event broker will be deployed and configured in the cloud you indicated, ports configured, load-balancer setup, monitoring enabled, etc. 
 It takes about 5 minutes, and then you'll be ready!
 
