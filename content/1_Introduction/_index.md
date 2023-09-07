@@ -24,17 +24,16 @@ Below is a high level architecture diagram of the distributed landscape :
 The workshop will utilize the existing infrastructure, including the fully developed "Corporate data center" and "Region London (eu-west-2)". 
 During the workshop, participants will construct and integrate the comprehensive "Region APAC (ap-northeast-1)" along with its various applications into the existing landscape.
 
-By the end of this workshop, you will be able to: 
+By the end of this workshop, you will have : 
 
-- Sign up for a Solace Cloud account
-- Create a developer grade broker deployed in an AWS region
-- Create an event mesh with a bidirectional link between the newly created broker and an existing broker
-- Create an AWS EC2 instance and set up the required software (Java, Maven, Git, Nodejs)
-- Checkout a client and admin application and set up a consumer application
+- Signed up for a Solace Cloud account
+- Created a developer grade broker deployed in an AWS region
+- Created an event mesh with a bidirectional link between the newly created broker and an existing broker
+- Used an AWS Cloud9 IDE and its EC2 instance to deploy and run admin and client consumer applications
 - Create an AWS Lambda service which will be invoked by an EventBridge Scheduler
 - Setup an AWS S3 bucket
 - Use the Solace native AWS S3 connector to feed incoming events to the newly created S3 bucket
-- Visualize the S3 bucket data using Amazon QuickSight
+- Visualize the S3 bucket data using Amazon OpenSearch
 
 
 ## Workshop Structure 
@@ -42,7 +41,7 @@ This workshop is divided into the sections listed below. Plan on 3-4 hours to co
 
 [x] Prerequisites : Setting up accounts for the solution *(20 minutes)* \
 [x] Module 1 : Setting up a Solace broker service and event mesh integration *(20 minutes)* \
-[x] Module 2 : Setting up an AWS EC2 instance, admin and client application setup *(40 minutes)* \
+[x] Module 2 : Using an AWS Cloud9 IDE to deploy and run custom development applications *(40 minutes)* \
 [x] Module 3 : Setting up AWS Lambda service and EvenBridge scheduler *(40 minutes)* \
 [x] Module 4 : Setting up an AWS S3 bucket and integrate with the Solace native connector *(40 minutes)* \
 [x] Module 5 : Visualize S3 data using Amazon Quicksight *(30 minutes)*

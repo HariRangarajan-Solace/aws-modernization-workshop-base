@@ -8,7 +8,6 @@ weight: 3
 In this step we will be learning how to :
 - Understanding the functionalities of the FX price client application
 - Install the following on an EC2 instance:
-    - Docker
     - Docker compose
 - Modify the configuration properties as required
 - Build and run the client application
@@ -26,9 +25,6 @@ In the previous step, you had successfully connected to your EC2 instance using 
 To build and run the client application, you will need some development tools namely :
 
 #### Docker
-Following are the set of commands need to be executed sequentially to install Docker :
-
-`sudo yum install docker -y`
 
 To start the Docker service, run `sudo service docker start`.
 
@@ -44,29 +40,20 @@ To verify the installation, run `docker-compose version`.
 ### Codebase of the frontend application
 The frontend application is already checked out and present within the repository that you cloned in the earlier step.
 
-Navigate to the directory : `cd solace-aws-integration/solace-quoteappdemo-frontend`
+Navigate to the directory : solace-aws-integration/solace-quoteappdemo-frontend
 
 ### Modifying configuration properties
 Similar to the Admin application, you will have to update some of the configuration properties that are required for the application to connect and start off.
-Navigate to the location of the file : `cd src/environments/`
 
-Enter the file using the command : `vi environment.ts` \
-Within the file, press `i` to enter the Insert mode \
 Change the following parameters with the values that you have collected earlier in Module-1 for the Angular frontend application:
 - host : Public Endpoint
 - vpn : Message VPN
 - clientUserName : Username
 - clientPassword : Password 
-- uri : The public IP of the EC2 instance that you have created 
-
-Once you have updated all the values successfully, press the **Escape(esc)** key to exit the Insert mode \
-Press `:wq!` to save and exit the file.
-
-To confirm that you have made all the changes properly, enter the file again using the command `vi environment.ts` \
-Verify the changes and press `:q!` to exit the file without making any changes. 
+- uri : The public IP of the EC2 instance that you have created. You should be using the same IP that you used in the previous step for the Administration application
+![Edit Frontend application properties](/images/moduleTwo/edit-fe-app-properties.png)
 
 ### Build and run the Administration application
-Navigate back to the root of the _solace-quoteappdemo-frontend_ application using the following command : `cd ../../` \
 Build and run the application using the command  : `sudo docker-compose up --build`
 
 Once the application shows up as started, you can hit the different urls of the client applications like below :

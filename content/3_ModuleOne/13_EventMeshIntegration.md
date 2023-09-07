@@ -43,6 +43,7 @@ Click on the button _Select Remote Message VPN_
 Make sure to fill in the details in this section very carefully as they are used to establish the connection.
 1. Remote Message VPN connection
    - Host list : Fill in the hostname of the **Remote** broker, this is detailed in the point#2 of **Credentials and required connection details** section
+_Note: This field is pre-populated, but the actual port to be used is different. So make sure to use the proper hostname_ 
 2. Bridge Client for Remote Message VPN
     - Client Username : Select the value `solace-cloud-client` from the dropdown
     - Password : Fill in the password of the **Remote** broker, this is detailed in the point#2 of **Credentials and required connection details** section
@@ -72,7 +73,7 @@ As a part of the prerequisites, you will have installed Postman tool which we wi
   - [Postman Environment file](/postman_collection/Solace-AWS-Demo-Env.postman_environment.json "download")
   - [Postman Collection file](/postman_collection/Solace-AWS-Demo-Collection.postman_collection.json "download") 
 - Import the above two files into Postman app.
-- Open the collection and adjust the variable **REMOTE_VPN_QUEUE_NAME** to what will be specific to you. The format of the queue name is:
+- Open the environment and adjust the variable **REMOTE_VPN_QUEUE_NAME** to what will be specific to you. The format of the queue name is:
   **YOUR_LOCAL_BROKER_NAME**_solace-aws-int-onprem_Queue. Replace the name of your broker in the placeholder and set it in the current and initial value of the variable.
 ![Postman environment](/images/moduleOne/postman_env_screen_1.png)
 - Open the Postman collection and run it to execute the request. Make sure to have the proper environment selected in the top-right corner.

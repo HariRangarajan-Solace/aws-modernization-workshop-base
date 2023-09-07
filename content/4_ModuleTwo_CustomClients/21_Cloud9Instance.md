@@ -5,7 +5,7 @@ weight: 1
 ---
 
 ## Introduction
-In this step we will be using Cloud9 and its EC2 instance.
+In this step we will be using Cloud9 and its EC2 instance to deploy and run two custom applications for subscribing to and viewing our market data events.
 
 ### Cloud9 instance
 AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. \
@@ -15,29 +15,16 @@ As a part of this workshop, you will have already got a Cloud9 subscription setu
 
 
 In this step we will be learning how to :
-- Create Key pairs
-- Create a CloudFormation stack using an existing template file and run it
-- Verify the EC2 instance created using CloudFormation stack
-- Connect to the newly created EC2 instance using an SSH terminal
+- Open ports on the EC2 instance to enable network connectivity to our applications.
 
-### Key Pairs setup
-- Once you have registered for your AWS account, start off with creating SSH keypairs which will be required for this demo. \
-The link over here contains detailed instructions on how to achieve this : [Create Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) \
-Make sure to select the proper region : Tokyo (ap-northeast-1) for the rest of this workshop.
 
-### EC2 instance setup using Cloudformation templates
-- Within the Github repository [Solace-AWS-Integration](https://github.com/SolaceLabs/solace-aws-integration), there are Cloudformation templates available which will setup an AWS EC2 instance for this excercise.
-- The link : [Run Cloudformation templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-new-stack.html) defines how to setup a cloudformation stack and run from an existing template file. 
-- Upload the CloudFormation template that is available from the Github repository and setup the EC2 instances for this module. 
-
-### Verifying the EC2 instance
-You should be able to see them in the EC2 instances screen as below :
-![EC2 Instances](/images/moduleTwo/ec2_instances_list.png)
-As you closely observe the screen you will notice: 
-- The region where you are going to be working is Tokyo (ap-northeast-1)
-- The instance with its id, state type and other details. 
-
-### Connecting to the EC2 instance
-- The link [Connect to EC2 instance via SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html#AccessingInstancesLinuxSSHClient) describes 
-    how to connect to an EC2 instance using an SSH terminal and the keypair that you created earlier.
-- Follow this step and connect to your newly created EC2 instance and login to your linux instance.
+1. Navigate to the Cloud9 Environments and enter the Cloud9 instance created for you as a part of this workshop named Solace-AWS-Cloud9
+![Cloud9 Environments list](/images/moduleTwo/cloud9-environments-list.png)
+2. Click on the **Manage EC2 Instance** button as shown
+![Manage EC2 instance](/images/moduleTwo/Solace-AWS-cloud9.png)
+3. Navigate to the Security Group attached to the EC2 instance as shown below
+![Security group](/images/moduleTwo/ec2-instance-security-group.png)
+4. Edit the inbound rules
+![Edit inbound rules](/images/moduleTwo/edit-security-group.png)
+5. Add in 8081 and 7888 as Custom TCP ports as below
+![Add inbound ports](/images/moduleTwo/Add-inbound-ports.png)   
