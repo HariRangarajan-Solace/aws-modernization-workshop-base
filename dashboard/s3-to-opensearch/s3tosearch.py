@@ -36,6 +36,7 @@ def csvToJson(csvStr):
     return document
 
 #test function
+# orderId | id | displayName | symbolOrderId | pOpen | pHigh | pLow | pClose | pDiff | vCurrent | vTotal | lastUpdated
 def test():
     test_string = '1306|AAPL|Apple Inc|63|52,20|52,25|52,20|52,25|0,05|1|345|1684234176731'
     document=csvToJson(test_string)

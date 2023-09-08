@@ -10,7 +10,7 @@ Typically a customer who use adopts Solace on cloud would first utilize Solace a
 
 The following is a simple architecture. S3 bucket and OpenSearch Serverless are already set up by CloudFormation template. What we will do in this section is:
 
-1. Configure Lambda function, that ingest data to OpenSearch in real time
+1. Configure Lambda function, that ingest data to OpenSearch, to be indexed in real time
 2. Set up visualization in OpenSearch Dashboard
 
 
