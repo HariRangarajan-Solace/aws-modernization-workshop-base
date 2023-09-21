@@ -4,7 +4,7 @@ chapter: true
 weight: 1
 ---
 
-# Solace EDA x AWS: Rapid Capital Data Migration
+# Solace EDA x AWS: Rapid Market Data Migration
 
 ![Solace Logo](/images/logos/Solace_Logo.png)
 
