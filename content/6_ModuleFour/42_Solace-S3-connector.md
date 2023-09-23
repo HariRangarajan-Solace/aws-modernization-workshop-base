@@ -1,5 +1,5 @@
 ---
-title: "SOlace-S3 connector setup"
+title: "Solace-S3 connector setup"
 chapter: true
 weight: 1 
 ---

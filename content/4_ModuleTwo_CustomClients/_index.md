@@ -11,8 +11,8 @@ These application connect to the Solace PubSub+ broker that you have created and
 
 After this module you will have :
 - Connected to an EC2 instance via Cloud9
-- Setup Java, NodeJs, Git, Maven, Docker and Docker Compose
-- Checked out and built 2 custom applications :
+- Install Maven and Docker Compose
+- Built and deployed 2 custom applications :
   - Java, Spring boot based administration application
   - NodeJs, Angular based front end application
 - Understand Solace PubSub+ broker capabilities like _Direct Messaging_, _Eliding_, _SEMP API_ etc

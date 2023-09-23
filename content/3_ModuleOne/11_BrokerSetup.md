@@ -5,9 +5,12 @@ weight: 1
 ---
 
 ## Setup the Solace PubSub+ broker instance
+
+### Step 1
 Once you are logged in to the Solace cloud portal with the details you registered with , you should see something like this:
 ![Solace Portal Mission Control](/images/moduleOne/mission-control.png)
 
+### Step 2
 Click on "Cluster Manager" to go into where you create and manage your broker services. 
 Then click the big "+" Plus button to create a new Service. 
 Ensure you have selected Developer Service, Amazon Web Services as the cloud service provider, 
@@ -23,7 +26,7 @@ It takes about 5 minutes, and then you'll be ready!
 
 Once the Solace broker is up and running, click on the broker name and enter it.
 
-### Solace PubSub+ Cloud
+### Step 3
 
 Once your service is deployed and ready, simply click on it to go into it and look at some basic configuration information:
 ![Broker Console](/images/moduleOne/broker_console.png)
@@ -33,7 +36,7 @@ Notice some buttons across the top:
 * The "Connect" tab shows you all the required connection information for your messaging pub/sub applications (e.g. host, username, password, etc.), which we'll need in later steps. The info can be grouped either by protocol or by programming language.
 * At the top-right, there should be a button saying "Open PubSub+ Broker Manager". Click on that to go into the Manager GUI.
 
-### PubSub+ Manager
+### Step 4
 
 From this webapp, you'll be able to view configured and runtime information, create new queues, create usernames and profiles, and other various administrative tasks for the Solace broker.
 ![PubSub+ Manager](/images/moduleOne/pubsubManager.png)
