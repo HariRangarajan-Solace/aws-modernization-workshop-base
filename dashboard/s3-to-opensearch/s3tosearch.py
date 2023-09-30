@@ -1,10 +1,10 @@
 import boto3
+import datetime
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
 from requests_aws4auth import AWS4Auth
 
 
 
-#convert csv string to json
 #convert csv string to json
 def csvToJson(csvStr):
     #split string into array
@@ -32,11 +32,10 @@ def csvToJson(csvStr):
     document['price_start'] = float(document['price_start'].replace(',','.'))
     document['price_end'] = float(document['price_end'].replace(',','.'))
     document['change'] = float(document['change'].replace(',','.'))
-    document['time'] = int(document['time'])    
+    document['time'] = datetime.datetime.utcfromtimestamp(int(document['time'])/1000)    
     return document
 
 #test function
-# orderId | id | displayName | symbolOrderId | pOpen | pHigh | pLow | pClose | pDiff | vCurrent | vTotal | lastUpdated
 def test():
     test_string = '1306|AAPL|Apple Inc|63|52,20|52,25|52,20|52,25|0,05|1|345|1684234176731'
     document=csvToJson(test_string)
@@ -69,6 +68,12 @@ client = OpenSearch(
     connection_class = RequestsHttpConnection,
     pool_maxsize = 20
 )
+
+
+# Regular expressions used to parse some simple log lines
+#ip_pattern = re.compile('(\d+\.\d+\.\d+\.\d+)')
+#time_pattern = re.compile('\[(\d+\/\w\w\w\/\d\d\d\d:\d\d:\d\d:\d\d\s-\d\d\d\d)\]')
+#message_pattern = re.compile('\"(.+)\"')
 
 
 
