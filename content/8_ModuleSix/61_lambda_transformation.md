@@ -20,29 +20,26 @@ Create Lambda functions and S3 bucket trigger.
 ![Specify Lambda parameters](/images/moduleSix/lambdaCreation.png)
 
 
-3. Add Lambda source code
-
-```python
-Lambda code should go here
-{{ readFile "/dashboard/s3-to-opensearch/s3tosearch.py" markdown="True" }}
-
-```
-You can also download the source code from here:
-[Lambda function Source Code](https://github.com/HariRangarajan-Solace/aws-modernization-workshop-base/blob/dashboard/dashboard/s3-to-opensearch/s3tosearch.py)
+3. Add Lambda source code, by choosing **Upload from**, then **.zip**file
 
 
+![Upload Lambda source code](/images/moduleSix/LambdaUploadCode.png)
 
-![Create Lambda function](/images/moduleSix/Lambda_S3toSearch.png)
+The zip file, which contains Lambda code and the all dependencies, can be found here:
+[Github link for lambda zip file](https://github.com/HariRangarajan-Solace/aws-modernization-workshop-base/blob/dashboard/dashboard/s3-to-opensearch/lambda.zip)
 
-4. Replace line 55 with your own endpoint url. 
+4. Replace OpenSearch endpoint host name in **line 57**, also make sure the region code is correct in **line 50**
 
-The endpoint url can be found from Open Search Dashboard, 
+![Update your Lambda function](/images/moduleSix/LambdaEditSourceCode.png)
+
+
+The endpoint host name can be found from Open Search Dashboard. Since only the **host** name is required, make sure the "https://" is removed from the url.
 ![OpenSearch endpoint](/images/moduleSix/OpenSearchEndPoint.png)
 
 or your CloudFormation Output:
 ![OpenSearch endpoint](/images/moduleSix/CloudFormationOutput.png)
 
-5. Now, set up S3 bucket trigger. This is make sure when each log file is added into the S3 bucket, it will be ingested into OpenSearch index right away.
+5. Now, set up S3 bucket trigger. This is make sure when each solace data file is added into the S3 bucket, it will be ingested into OpenSearch index right away.
 * Select a source: Choose "S3"
 * Bucket: Choose "Solace-workshop-xxxxx"
 * Event Type: Choose "All object create events"

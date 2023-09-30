@@ -6,4 +6,4 @@ cd package
 zip -r ../lambda.zip .
 
 cd ..
-zip -g lambda.zip s3tosearch.py
+zip -g lambda.zip lambda_function.py

@@ -4,7 +4,6 @@ from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
 from requests_aws4auth import AWS4Auth
 
 
-
 #convert csv string to json
 def csvToJson(csvStr):
     #split string into array
@@ -44,21 +43,19 @@ def test():
 
 #test()
 
-region = 'us-east-1' # e.g. us-west-1
+s3 = boto3.client('s3')
+
+
+
+region = 'ap-northeast-1' # The region for the OpenSearch service.
 service = 'aoss'
 credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
 
-s3 = boto3.client('s3')
 
-host = 'zrf9yyk8q2vne4ae5cab.us-east-1.aoss.amazonaws.com' # the OpenSearch Service domain, e.g. https://search-mydomain.us-west-1.es.amazonaws.com
-index = 'solace-index'
-datatype = '_doc'
-url = host + '/' + index + '/' + datatype
-
-headers = { "Content-Type": "application/json" }
-
-
+# the OpenSearch Service endpoint , e.g. https://search-mydomain.ap-northeast-1.aoss.amazonaws.com
+host = 'zxs41l7or0vtsq9lzh3l.ap-northeast-1.aoss.amazonaws.com' 
+index_name = 'solace-index'
 
 client = OpenSearch(
     hosts = [{'host': host, 'port': 443}],
@@ -70,16 +67,8 @@ client = OpenSearch(
 )
 
 
-# Regular expressions used to parse some simple log lines
-#ip_pattern = re.compile('(\d+\.\d+\.\d+\.\d+)')
-#time_pattern = re.compile('\[(\d+\/\w\w\w\/\d\d\d\d:\d\d:\d\d:\d\d\s-\d\d\d\d)\]')
-#message_pattern = re.compile('\"(.+)\"')
-
-
-
-
-# Lambda execution starts here
-def handler(event, context):
+# Lambda function entery point
+def lambda_handler(event, context):
     for record in event['Records']:
 
         # Get the bucket name and key for the new file
@@ -91,14 +80,13 @@ def handler(event, context):
         body = obj['Body'].read()
         lines = body.splitlines()
 
-
+        #The current data file has only one line.  Just in case, we define the loop here so that even it has multiple lines, it still works
         for line in lines:
             line = line.decode("utf-8")
             document=csvToJson(line)
             print(document)
-            # r = requests.post(url, auth=awsauth, json=document, headers=headers)
             r = client.index(
-                index = 'solace-index',
+                index = index_name,
                 body = document,
 
                # refresh = True
