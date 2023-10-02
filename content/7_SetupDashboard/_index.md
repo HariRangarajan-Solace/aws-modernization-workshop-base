@@ -1,7 +1,7 @@
 ---
 title: "6. Set up dashboard"
 chapter: true
-weight: 4
+weight: 7
 ---
 
 # Set up Elastic Dashboard

@@ -1,7 +1,7 @@
 ---
 title: "2. Setup custom clients for events"
 chapter: true
-weight: 3
+weight: 4
 ---
 
 ## Introduction

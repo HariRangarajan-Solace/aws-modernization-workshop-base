@@ -1,7 +1,7 @@
 ---
 title: "3. AWS Event bridge scheduler triggering AWS Lambda" 
 chapter: true
-weight: 3
+weight: 5
 ---
 ## Introduction
 

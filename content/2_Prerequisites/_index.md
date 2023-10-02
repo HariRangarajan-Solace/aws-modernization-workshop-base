@@ -1,7 +1,7 @@
 ---
 title: "Prerequisites"
 chapter: true
-weight: 1
+weight: 2
 ---
 
 ## Prerequisites to start running the workshop
