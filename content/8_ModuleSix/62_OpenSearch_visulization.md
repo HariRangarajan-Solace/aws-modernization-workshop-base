@@ -18,9 +18,17 @@ If you want to learn more about OpenSearch dashboard, please go to [official doc
 GET solace-index/_search
 {
   "query": {
-     "match_all": { 
-     }
-  }
+    "match": {
+      "ticker": "AAPL"
+    }
+  },
+  "sort": [
+    {
+      "time": {
+        "order": "desc"
+      }
+    }
+  ]
 }
 ```
 You should see the data that are ingested already as following:

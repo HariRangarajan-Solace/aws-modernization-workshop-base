@@ -17,26 +17,25 @@ def csvToJson(csvStr):
     document = {
         'id': csvArr[0],
         'ticker': csvArr[1],
-        'name': csvArr[2],
-        'volume': csvArr[3],
-        'price_start': csvArr[4],
-        'price_end': csvArr[5],
-        'change': csvArr[8],
+        'displayName': csvArr[2],
+
+        'pOpen': float(csvArr[4]),
+        'pHigh': float(csvArr[5]),
+        'pLow': float(csvArr[6]),
+        'pClose': float(csvArr[7]),
+        'pDiff': float(csvArr[8]),
+        'vCurrent': int(csvArr[9]),
+        'vTotal': int(csvArr[10]),
         'time': csvArr[11]  
     } 
 
-
-    #convert fileds to numbers
-    document['volume'] = int(document['volume'])
-    document['price_start'] = float(document['price_start'].replace(',','.'))
-    document['price_end'] = float(document['price_end'].replace(',','.'))
-    document['change'] = float(document['change'].replace(',','.'))
     document['time'] = datetime.datetime.utcfromtimestamp(int(document['time'])/1000)    
     return document
 
 #test function
+# example: 2|id:ACABU|displayName:Atlantic Coastal Acquisition Corp II|symbolOrderId:2|pOpen:41,10|pHigh:41,10|pLow:31,75|pClose:31,75|pDiff:-9,35|vCurrent:9|vTotal:13|lastUpdated:1696245667261
 def test():
-    test_string = '1306|AAPL|Apple Inc|63|52,20|52,25|52,20|52,25|0,05|1|345|1684234176731'
+    test_string = '264231599|AAPL|Apple Inc|13210197|52.20|57.95|47.20|56.25|4.05|4|66038700|1695876055726'
     document=csvToJson(test_string)
     print(document)
 
