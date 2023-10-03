@@ -1,3 +1,4 @@
+rm ./lambda.zip
 rm -rf package
 #pip3 install --target ./package requests==2.28.2
 pip3 install --target ./package opensearch-py

@@ -34,6 +34,7 @@ def csvToJson(csvStr):
 
 #test function
 # example: 2|id:ACABU|displayName:Atlantic Coastal Acquisition Corp II|symbolOrderId:2|pOpen:41,10|pHigh:41,10|pLow:31,75|pClose:31,75|pDiff:-9,35|vCurrent:9|vTotal:13|lastUpdated:1696245667261
+
 def test():
     test_string = '264231599|AAPL|Apple Inc|13210197|52.20|57.95|47.20|56.25|4.05|4|66038700|1695876055726'
     document=csvToJson(test_string)
