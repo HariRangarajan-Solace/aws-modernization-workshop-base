@@ -1,7 +1,7 @@
 ---
 title: "4. Persisting events to S3 bucket"
 chapter: true
-weight: 4
+weight: 6
 ---
 
 ## Introduction

@@ -267,3 +267,154 @@ Resources:
       Repositories:
         - RepositoryUrl: 'https://github.com/SolaceLabs/solace-aws-integration.git'
           PathComponent: 'solace-aws-integration'
+
+  #define S3 bucket, and the user 'SolaceS3ConnectorUser' with the access right to the bucket
+  SolaceDataS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 
+        Fn::Sub: 
+          - "solace-workshop-${AccountId}"
+          - AccountId: !Ref "AWS::AccountId"
+
+
+  SolaceS3ConnectorUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName: SolaceS3Connector
+
+  
+  SolaceS3ConnectorAccessKey:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      UserName: SolaceS3Connector
+    DependsOn: SolaceS3ConnectorUser
+
+  SolaceS3ConnectorUserPolicy:
+    Type: 'AWS::IAM::UserPolicy'
+    Properties:
+      PolicyName: S3FullAccessPolicy
+      UserName: SolaceS3Connector
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:*'
+            Resource:
+              - Fn::Sub: "arn:aws:s3:::${SolaceDataS3Bucket}"
+              - Fn::Sub: "arn:aws:s3:::${SolaceDataS3Bucket}/*"
+    DependsOn: SolaceS3ConnectorUser
+
+
+  # The following is OpenSearch related configuration
+
+
+
+  DataAccessPolicy:
+    Type: 'AWS::OpenSearchServerless::AccessPolicy'
+    Properties:
+      Name: solacedashboard-access-policy
+      Type: data
+      Description: Access policy for solacedashboard collection
+      Policy: !Sub >-
+        [{"Description":"Access for cfn user","Rules":[{"ResourceType":"index","Resource":["index/*/*"],"Permission":["aoss:*"]},
+        {"ResourceType":"collection","Resource":["collection/solacedashboard"],"Permission":["aoss:*"]}],
+        "Principal": ["arn:aws:iam::${AWS::AccountId}:role/Admin-OneClick", "arn:aws:iam::${AWS::AccountId}:role/Admin-OneClick"]}]
+  NetworkPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: solacedashboard-network-policy
+      Type: network
+      Description: Network policy for solacedashboard collection
+      Policy: >-
+        [{"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}, {"ResourceType":"dashboard","Resource":["collection/solacedashboard"]}],"AllowFromPublic":true}]
+  EncryptionPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: solacedashboard-security-policy
+      Type: encryption
+      Description: Encryption policy for solacedashboard collection
+      Policy: >-
+        {"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}],"AWSOwnedKey":true}
+  OpenSearchCollection:
+    Type: 'AWS::OpenSearchServerless::Collection'
+    Properties:
+      Name: solacedashboard
+      Type: TIMESERIES
+      Description: Collection to holds timeseries data
+    DependsOn: EncryptionPolicy
+
+#Define Lambda function role
+  SolaceWorkshopLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: solace_workshop_lambda_role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  SolaceWorkshopS3ReadOnlyRolePolicy:
+    Type: AWS::IAM::RolePolicy
+    Properties:
+      RoleName: !Ref SolaceWorkshopLambdaRole
+      PolicyName: solace_workshop_s3_readonly_policy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:ListBucket
+            Resource:
+              - Fn::Sub: "arn:aws:s3:::${SolaceDataS3Bucket}"
+              - Fn::Sub: "arn:aws:s3:::${SolaceDataS3Bucket}/*"
+
+  SolaceWorkshopPolicyLambdaIngestionRolePolicy:
+    Type: AWS::IAM::RolePolicy
+    Properties:
+      RoleName: !Ref SolaceWorkshopLambdaRole
+      PolicyName: solace_workshop_policy_opensearch_ingestion
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - "aoss:DashboardsAccessAll"
+              - "aoss:APIAccessAll"
+            Resource: "*"
+
+
+Outputs:
+  S3BucketName:
+    Description: Name of the S3 bucket
+    Value: !Ref SolaceDataS3Bucket
+
+  EndpointURL:
+    Value: !GetAtt OpenSearchCollection.CollectionEndpoint
+
+  DashboardURL:
+    Value: !GetAtt OpenSearchCollection.DashboardEndpoint
+
+  CollectionARN:
+    Value: !GetAtt OpenSearchCollection.Arn
+
+  SolaceS3ConnectorUserAccessKey:
+    Description: "Access Key ID for the Solace S3 Connector user"
+    Value: !Ref SolaceS3ConnectorAccessKey
+    Export:
+      Name: SolaceS3ConnectorUserAccessKey
+
+  SolaceS3ConnectorUserSecretKey:
+    Description: "Secret Access Key for the Solace S3 Connector user"
+    Value: !GetAtt SolaceS3ConnectorAccessKey.SecretAccessKey
+    Export:
+      Name: SolaceS3ConnectorUserSecretKey
+

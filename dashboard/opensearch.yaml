@@ -1,0 +1,52 @@
+#opensearch serverless template
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'Amazon OpenSearch Serverless template to create an IAM user, encryption policy, data access policy and collection'
+Resources:
+  IAMUSer:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName:  aossadmin
+  DataAccessPolicy:
+    Type: 'AWS::OpenSearchServerless::AccessPolicy'
+    Properties:
+      Name: solacedashboard-access-policy
+      Type: data
+      Description: Access policy for solacedashboard collection
+      Policy: !Sub >-
+        [{"Description":"Access for cfn user","Rules":[{"ResourceType":"index","Resource":["index/*/*"],"Permission":["aoss:*"]},
+        {"ResourceType":"collection","Resource":["collection/solacedashboard"],"Permission":["aoss:*"]}],
+        "Principal":["arn:aws:iam::${AWS::AccountId}:user/aossadmin", "arn:aws:iam::${AWS::AccountId}:role/Admin-OneClick"]}]
+  NetworkPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: solacedashboard-network-policy
+      Type: network
+      Description: Network policy for solacedashboard collection
+      Policy: >-
+        [{"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}, {"ResourceType":"dashboard","Resource":["collection/solacedashboard"]}],"AllowFromPublic":true}]
+  EncryptionPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: solacedashboard-security-policy
+      Type: encryption
+      Description: Encryption policy for solacedashboard collection
+      Policy: >-
+        {"Rules":[{"ResourceType":"collection","Resource":["collection/solacedashboard"]}],"AWSOwnedKey":true}
+  Collection:
+    Type: 'AWS::OpenSearchServerless::Collection'
+    Properties:
+      Name: solacedashboard
+      Type: TIMESERIES
+      Description: Collection to holds timeseries data
+    DependsOn: EncryptionPolicy
+Outputs:
+  IAMUser:
+    Value: !Ref IAMUSer
+  EndpointURL:
+    Value: !GetAtt Collection.CollectionEndpoint
+  DashboardURL:
+    Value: !GetAtt Collection.DashboardEndpoint
+  CollectionARN:
+    Value: !GetAtt Collection.Arn
+
+
