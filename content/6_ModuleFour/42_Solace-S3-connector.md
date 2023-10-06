@@ -18,8 +18,8 @@ In this section we will be linking the S3 bucket with the Solace event mesh usin
 #### Step 2 - Authenticate
 - Fill in the following details in the first step and click **Connector setup**
   - Connector name : Put in a name of your choice
-  - Access key id : Put in the **Access key** that you created from the IAM console.
-  - Access key : Put in the **Secret Access key** that you created from the IAM console.
+  - Access key id : Put in the **Access key** that you retrieved from the cloudformation console.
+  - Access key : Put in the **Secret Access key** that you retrieved from the cloudformation console
   - Bucket name : Name of the bucket that you created
   - Bucket region : The region of the bucket where you created. In our case, it was `ap-northeast-1` \
 Below is a screenshot of the step for your reference
@@ -34,13 +34,30 @@ In this step, we define the folder structure where the events will be persisted.
 We use Substitution Expressions which are a Solace-specific expression language used to replace specific text attributes (request targets, request headers, etc.) with system generated output.
 You can read more about them over here : [Substitution Expressions](https://docs.solace.com/Messaging/Substitution-Expressions-Overview.htm)
 - Use the following values for the subscription setup :
-    - File name mapping function : `/quote-engine/APAC-Region/${localYear()}/${localMonth()}/${localDay()}/${localHour()}/${topic(3)}/${topic(4)}`
+    - File name mapping function : `/quote-engine/APAC-Region/${localYear()}/${localMonth()}/${localDay()}/${localHour()}/${topic(3)}/${topic(4)}-${now()}`
     - Subscriptions : `TW/TWSE/LIVE/*`
 - Click on **Create and Enable Connector**
 
-#### Step 5 - Summary
+#### Step 5 - Connected
 This step details the results of the asset creation result and its operational state
 ![S3 - Create-connector-step-5](/images/moduleFour/S3-connector-step-5.png)
 
 
-As the events are produced on the **Remote - On premise** broker and is pushed thru to the mesh, they will be saved to the S3 bucket as files in the folder structure we defined.
+#### Step 6 - Optimising
+To make sure that the rate of pushing events to the S3 bucket is optimized, we will be :
+- Increasing the number of concurrent connections
+- Making the queue backing the connector as **Non-exclusive**
+1. Go to the newly created connector as below :
+![S3 - Connector-step6](/images/moduleFour/connector.png)
+2. Click on the **rest Consumer** row as shown below :
+ ![S3 - RestConsumer-highlighted-step6](/images/moduleFour/inside-s3-connector.png)   
+3. Update the **Outgoing Connection Count** value by double-clicking on it to **50**
+ ![S3 - Outgoing-connection-count-highlighted-step6](/images/moduleFour/outbound-connection-count.png)
+4. On the main connector screen, click on the **Queue** row as shown below :
+![S3 - Queue Highlighted-step6](/images/moduleFour/Queue-highlighted.png)
+5. Click on the edit button on the queue configuration screen as shown below :
+![S3 - Queue Configuration details-step6](/images/moduleFour/Queue-configuration-details.png)
+6. In the **Edit Queue Settings** screen click on the access type and make it **Non-Exclusive** as shown below:
+![S3 - Switch access type-step6](/images/moduleFour/switch-access-type.png)
+
+As the events are produced on the **Remote - On premise** broker and is pushed through to the mesh, they will be saved to the S3 bucket as files in the folder structure we defined.

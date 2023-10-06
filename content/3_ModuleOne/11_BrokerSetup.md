@@ -18,10 +18,13 @@ and then click the map to find a region close to you:
 
 ![Create Service](/images/moduleOne/broker_create_service.jpg)
 
-Give your Solace PubSub+ Cloud service instance a name using the naming convention : _FirstName_-Solace-AWS-Int-APAC, and then tell it start! 
+Give your Solace PubSub+ Cloud service instance a name using the naming convention : \
+**_FirstName-FirstLetterOfLastName_-apac**, and then tell it start!.\
+For eg. if your name is John Doe, then the name of your broker will be **john-d-apac**
+> Note: Please make sure to follow the above naming convention and restrict the length of your broker name to **25** characters as this will ensure that the artifacts that you create later will follow naming length conventions
+
 Under the covers, a Solace event broker will be deployed and configured in the cloud you indicated, ports configured, load-balancer setup, monitoring enabled, etc. 
 It takes about 5 minutes, and then you'll be ready!
-
 > It is safe to navigate away from the "Solace is starting" page while the broker is being deployed in the cloud.  Feel free to explore the rest of Solace Mission Control, including the Event Portal!
 
 Once the Solace broker is up and running, click on the broker name and enter it.

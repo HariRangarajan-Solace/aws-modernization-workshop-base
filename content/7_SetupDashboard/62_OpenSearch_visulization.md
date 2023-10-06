@@ -34,13 +34,13 @@ GET solace-index/_search
 You should see the data that are ingested already as following:
 ![Dev Tool to query the index](/images/moduleSix/OpenSearchDevTools.png)
 
-3. Before createing visualization, the Index Pattern is required. Go to the humburger menu, choose **Stack Management**, choose **Index Patterns**, then click **Create index pattern**
+3. Before createing visualization, the Index Pattern is required. Go to the hamburger menu, choose **Stack Management**, choose **Index Patterns**, then click **Create index pattern**
 In the following screen, input:
 Index pattern name = solace*
 
 ![Create the Index Pattern](/images/moduleSix/OpenSearchCreateIndexPattern.png)
 
-In next screen, choose the **Time field** (Here, _time_ is a colume, representing the epoch time of the stock price record), then **Create index pattern**
+In next screen, choose the **Time field** (Here, _time_ is a column, representing the epoch time of the stock price record), then **Create index pattern**
 
 ![Select the Time Field](/images/moduleSix/OpenSearchCreateIndexPatternTimeField.png)
 

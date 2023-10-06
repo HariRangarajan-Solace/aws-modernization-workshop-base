@@ -34,7 +34,7 @@ The hostname and credentials of the newly created broker which we will call as *
 ![Broker Console - Connect](/images/moduleOne/brokerconsole_connect.png)
 
 This tab lists the credentials and protocol specific host urls that must be used while connecting to the Solace broker using a supported client library. \
-We need two set of connection details as below : \
+We need two set of connection details as below : 
 
 #### Step 1
 **Credentials for using in the Spring Java application** \

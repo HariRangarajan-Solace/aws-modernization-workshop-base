@@ -17,11 +17,11 @@ In this step we will be learning how to :
 In this workshop, our primary use case involves an edge broker that provides FX pricing to client desktop and mobile devices for easy access and review.
 
 Users are divided into different categories (categories 1-4) based on the refresh rates of the data they receive. \
-This rate limiting is implemented using the concept of Direct Messaging Eliding backed by client profiles with the corresponding message delays. \
-This client application is built using Angular and the Solace Nodejs API and deployed in a docker container within the EC2 instance. 
+This rate limiting is implemented using the concept of Direct Messaging Eliding backed by client profiles with the corresponding message delays. 
+
+> Run the below steps in a new terminal in the Cloud9 environment. Do not stop the admin application that we deployed in the previous step
 
 ### Step 1 : Installing development tools
-In the previous step, you had successfully connected to your EC2 instance using an SSH terminal.
 To build and run the client application, you will need some development tools namely :
 
 #### Docker
@@ -43,14 +43,14 @@ The frontend application is already checked out and present within the repositor
 Navigate to the directory : solace-aws-integration/solace-quoteappdemo-frontend
 
 ### Step 3 : Modifying configuration properties
-Similar to the Admin application, you will have to update some of the configuration properties that are required for the application to connect and start off.
-
+Similar to the Admin application, you will have to update some of the configuration properties that are required for the application to connect and start off. \
+The properties file can be found at the location in the browser : solace-aws-integration/solace-quoteappdemo-frontend/src/environments \
 Change the following parameters with the values that you have collected earlier in **Credentials and required connection details - Section 2 - Step 2**
 - host : Public Endpoint
 - vpn : Message VPN
 - clientUserName : Username
 - clientPassword : Password 
-- uri : The public IP of the EC2 instance that you have created. You should be using the same IP that you used in the previous step for the Administration application
+- uri : The public IP of the Cloud9 EC2 instance. You should be using the same IP that you used in the previous step for the Administration application
 ![Edit Frontend application properties](/images/moduleTwo/edit-fe-app-properties.png)
 
 ### Step 4 : Build and run the Administration application
